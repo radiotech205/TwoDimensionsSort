@@ -109,7 +109,8 @@ int main(int argc, char** argv)
                 continue;
 
             float prob = ProbabitilyMatcher(xy_l_dist, xy_l_dist_size, xy_r_dist, xy_r_dist_size, eps_dist);
-            if(prob > 0.0) {
+            if(prob > 0.666) {
+                printf("(%d,%d): %f\n", i, j, prob);
                 int num_memb = rows_l[2*i+1] < rows_r[2*j+1] ? rows_l[2*i+1] : rows_r[2*j+1];
 
                 for(int k = rows_l[2*i+0]; k < (rows_l[2*i+0] + num_memb); k++) {
@@ -276,7 +277,7 @@ float ProbabitilyMatcher(float* xy_a_dist, int xy_a_dist_size, float* xy_b_dist,
     int match_cnt = (xy_a_dist_size > xy_b_dist_size) ? xy_a_dist_size : xy_b_dist_size;
 
     for(int i = 0; i < xy_a_dist_size; i++) {
-        for(int j = 0; j < xy_b_dist_size; j++) {
+        for(int j = i; j < xy_b_dist_size; j++) {
             if(fabs(xy_a_dist[i] - xy_b_dist[j]) < eps_dist)
                 match++;
         }
